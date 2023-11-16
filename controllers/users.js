@@ -18,7 +18,7 @@ const checkUser = (user, res, next) => {
 const getCurrentUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
-    res.send(user);
+    return res.send(user);
   } catch (error) {
     next(error);
   }
@@ -58,20 +58,19 @@ const createUser = async (req, res, next) => {
   }
 };
 
-const login = async (req, res, next) => {
+const login = (req, res, next) => {
   const { email, password } = req.body;
-  try {
-    const user = await User.findUserByCredentials(email, password);
-    const token = jwt.sign(
-      { _id: user._id },
-      NODE_ENV === NODE_PRODUCTION ? JWT_SECRET : DEV_SECRET,
-      { expiresIn: '7d' },
-    );
-    res.cookie('jwt', token, { httpOnly: true, secure: true, sameSite: 'none' });
-    res.status(CODE).send({ message: 'Вход выполнен успешно' });
-  } catch (error) {
-    next(error);
-  }
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === NODE_PRODUCTION ? JWT_SECRET : DEV_SECRET,
+        { expiresIn: '7d' },
+      );
+      res.cookie('jwt', token, { httpOnly: true, secure: true, sameSite: 'none' });
+      return res.status(CODE).send({ message: 'Вход выполнен успешно' });
+    })
+    .catch(next);
 };
 
 const logout = (req, res) => {

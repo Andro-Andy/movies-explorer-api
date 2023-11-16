@@ -8,7 +8,7 @@ const { CODE } = require('../utils/constants');
 const getUserMovies = async (req, res, next) => {
   try {
     const movies = await Movie.find({ owner: req.user._id });
-    res.json(movies);
+    return res.json(movies);
   } catch (err) {
     next(err);
   }
@@ -55,7 +55,7 @@ const createMovie = async (req, res, next) => {
       throw new BadRequest('Переданы некорректные данные при создании фильма');
     }
 
-    res.send(movie);
+    return res.send(movie);
   } catch (err) {
     next(err);
   }
@@ -69,13 +69,13 @@ const deleteMovie = async (req, res, next) => {
       throw new BadRequest('Некорректный ID фильма');
     }
 
-    const deletedMovie = await Movie.findByIdAndDelete(movieId);
+    const deletedMovie = await Movie.findOneAndDelete({ _id: movieId, owner: req.user._id });
 
     if (!deletedMovie) {
-      throw new NotFound('Фильм не найден');
+      throw new NotFound('Фильм не найден или не принадлежит текущему пользователю');
     }
 
-    res.status(CODE).send({ message: 'Фильм успешно удален' });
+    return res.status(CODE).send({ message: 'Фильм успешно удален' });
   } catch (err) {
     next(err);
   }
