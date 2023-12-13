@@ -4,7 +4,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const Unauthorized = require('../errors/Unauthorized');
 const { DEV_SECRET, NODE_PRODUCTION } = require('../config');
 
-module.exports = async (req, res, next) => {
+module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
