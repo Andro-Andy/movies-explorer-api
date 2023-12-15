@@ -13,7 +13,7 @@ const MESSAGE_ERROR_FILM_NOT_FOUND = 'Фильм не найден';
 const MESSAGE_DELETED_FILM = 'Фильм успешно удален';
 const MESSAGE_SUCCESSFULL_SIGNIN = 'Вход выполнен успешно';
 const MESSAGE_SUCCESSFULL_SIGNOUT = 'Вы успешно вышли';
-const REGEX = /^(https?:\/\/)?([a-zA-Z0-9_-]+\.)+[a-zA-Z]{2,}([/a-zA-Z0-9_\-/]*)?$/;
+const REGEX = /(https?:\/\/)(www)?([a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=%])*#?$/;
 
 module.exports = {
   CODE,

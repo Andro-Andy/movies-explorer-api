@@ -1,4 +1,4 @@
-const allowedCors = new Set([
+const allowedCors = [
   'https://movie-dox.nomoredomainsmonster.ru',
   'http://movie-dox.nomoredomainsmonster.ru',
   'https://api.movie-dox.nomoredomainsmonster.ru/users/me',
@@ -10,7 +10,7 @@ const allowedCors = new Set([
   'http://localhost:4000',
   'https://51.250.104.105',
   'http://51.250.104.105',
-]);
+];
 
 module.exports = (req, res, next) => {
   const { origin } = req.headers;
@@ -18,16 +18,14 @@ module.exports = (req, res, next) => {
   const requestHeaders = req.headers['access-control-request-headers'];
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
-  if (allowedCors.has(origin)) {
+  if (allowedCors.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
     res.header('Access-Control-Allow-Credentials', true);
   }
-
   if (method === 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
     res.header('Access-Control-Allow-Headers', requestHeaders);
     return res.end();
   }
-
-  next();
+  return next();
 };
