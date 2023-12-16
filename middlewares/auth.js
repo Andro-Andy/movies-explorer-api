@@ -5,16 +5,16 @@ const Unauthorized = require('../errors/Unauthorized');
 const { DEV_SECRET, NODE_PRODUCTION } = require('../config');
 
 module.exports = (req, res, next) => {
-  const token = req.cookies['jwt']
+  const token = req.cookies.jwt;
 
   try {
-    payload = jwt.verify(
+    const payload = jwt.verify(
       token,
       NODE_ENV === NODE_PRODUCTION ? JWT_SECRET : DEV_SECRET
     );
+    req.user = payload;
+    return next();
   } catch (err) {
     return next(new Unauthorized('Необходимо пройти авторизацию'));
   }
-  req.user = payload;
-  return next();
 };
