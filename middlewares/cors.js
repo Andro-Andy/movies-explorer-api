@@ -1,14 +1,13 @@
 const allowedCors = [
-  'https://movie-dox.nomoredomainsmonster.ru',
   'http://movie-dox.nomoredomainsmonster.ru',
-  'https://api.movie-dox.nomoredomainsmonster.ru/users/me',
-  'https://api.movie-dox.nomoredomainsmonster.ru/cards',
-  'https://api.movie-dox.nomoredomainsmonster.ru/signup',
-  'https://api.movie-dox.nomoredomainsmonster.ru/signin',
+  'http://movie-dox.nomoredomainsmonster.ru',
+  'http://api.movie-dox.nomoredomainsmonster.ru/users/me',
+  'http://api.movie-dox.nomoredomainsmonster.ru/cards',
+  'http://api.movie-dox.nomoredomainsmonster.ru/signup',
+  'http://api.movie-dox.nomoredomainsmonster.ru/signin',
   'http://localhost:3000',
   'http://localhost:3001',
   'http://localhost:4000',
-  'https://51.250.104.105',
   'http://51.250.104.105',
 ];
 
