@@ -32,8 +32,8 @@ const updateUser = (req, res, updateData, next) => {
 };
 
 const updateProfile = async (req, res, next) => {
-  const { name } = req.body;
-  await updateUser(req, res, { name }, next);
+  const { name, email } = req.body;
+  await updateUser(req, res, { name, email }, next);
 };
 
 const createUser = async (req, res, next) => {
